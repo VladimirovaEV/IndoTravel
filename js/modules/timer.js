@@ -1,17 +1,12 @@
 import addZero from './utils.js';
 import getElements from './getElements.js';
 const {
-  timerElement,
-  timerItemDays,
-  timerItemHours,
-  timerItemMinutes,
   timerCountDays,
   timerCountHour,
   timerCountMin,
   timerUnitsDays,
   timerUnitsHour,
   timerUnitsMin,
-  deadLine,
   heroText,
   heroTimer,
 } = getElements;
