@@ -1,4 +1,8 @@
-import addZero from './utils.js';
+import utils from './utils.js';
+const {
+  addZero,
+  declOfNum
+} = utils;
 import getElements from './getElements.js';
 const {
   timerCountDays,
@@ -9,11 +13,16 @@ const {
   timerUnitsMin,
   heroText,
   heroTimer,
+  timerItemSeconds,
+  timerCountSeconds,
+  timerUnitsSeconds,
+  timerItemDays,
 } = getElements;
 
 const timer = deadLine => {
   const getTimeRemaining = () => {
-    const dateStop = new Date(deadLine).getTime();
+    const diff = new Date(deadLine).getTimezoneOffset();
+    const dateStop = new Date(deadLine).getTime() + (diff * 60000) + 3 * 3600000;
     const dateNow = Date.now();
     const timeRemaining = dateStop - dateNow;
     const seconds = Math.floor(timeRemaining / 1000 % 60);
@@ -22,39 +31,22 @@ const timer = deadLine => {
     const days = Math.floor(timeRemaining / 1000 / 60 / 60 / 24);
     return {timeRemaining, seconds, minutes, hours, days};
   };
-  const start = () => {
+  
+    const start = () => {
     const changeTimer = getTimeRemaining();
     timerCountDays.textContent = changeTimer.days;
-    if ((timerCountDays.textContent.slice(-1) === '0') || (Number(timerCountDays.textContent) >= 11 && Number(timerCountDays.textContent) <= 19)) {
-      timerUnitsDays.textContent = 'дней';
-    }
-    if ((timerCountDays.textContent.length > 1 && timerCountDays.textContent.slice(-1) === '5') || (timerCountDays.textContent.length > 1 && timerCountDays.textContent.slice(-1) === '6')) {
-      timerUnitsDays.textContent = 'дней';
-    }
-    if ((timerCountDays.textContent.length > 1 && timerCountDays.textContent.slice(-1) === '7') || (timerCountDays.textContent.length > 1 && timerCountDays.textContent.slice(-1) === '9')) {
-      timerUnitsDays.textContent = 'дней';
-    }
-    if (timerCountDays.textContent.length > 1 && timerCountDays.textContent.slice(-1) === '9') {
-      timerUnitsDays.textContent = 'дней';
-    }
-    if (timerCountDays.textContent === '1' || timerCountDays.textContent.length > 1 && timerCountDays.textContent.slice(-1) === '1') {
-      timerUnitsDays.textContent = 'день';
-    }
+    timerUnitsDays.textContent = declOfNum(changeTimer.days, ['день', 'дня', 'дней']);
     timerCountHour.textContent = addZero(changeTimer.hours);
-    if (timerCountHour.textContent.slice(-1) === '1') {
-      timerUnitsHour.textContent = 'час';
-    }
-    if (Number(timerCountHour.textContent) > 20 && ((timerCountHour.textContent.slice(-1) === '2') || (timerCountHour.textContent.slice(-1) === '3') || (timerCountHour.textContent.slice(-1) === '4'))) {
-      timerUnitsHour.textContent = 'часа';
-    }
+    timerUnitsHour.textContent = declOfNum(changeTimer.hours, ['час', 'часа', 'часов']);
     timerCountMin.textContent = addZero(changeTimer.minutes);
-    if ((timerCountMin.textContent.slice(-1) === '2') || (timerCountMin.textContent.slice(-1) === '3') || (timerCountMin.textContent.slice(-1) === '4')) {
-      timerUnitsMin.textContent = 'минуты';
-    }
-    if (timerCountMin.textContent === '01' || (Number(timerCountMin.textContent) > 20 && timerCountMin.textContent.slice(-1) === '1')) {
-      timerUnitsMin.textContent = 'минута';
-    }
+    timerUnitsMin.textContent = declOfNum(changeTimer.minutes, ['минута', 'минуты', 'минут']);
+    timerCountSeconds.textContent = addZero(changeTimer.seconds);
+    timerUnitsSeconds.textContent = declOfNum(changeTimer.seconds, ['секунда', 'секунды', 'секунд']);
     const intervalId = setTimeout(start, 1000);
+    if (changeTimer.timeRemaining < 86400000) {
+      timerItemDays.style.display = 'none';
+      timerItemSeconds.style.display = 'flex';
+    }
     if (changeTimer.timeRemaining <= 0) {
       clearTimeout(intervalId);
       timerCountDays.textContent = '00';
