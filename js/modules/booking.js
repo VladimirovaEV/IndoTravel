@@ -8,6 +8,9 @@ const reservationPrice = document.querySelector('.reservation__price');
 
 const renderTours = async () => {
 const data = await loadData();
+let tourPrice;
+let dateTour;
+let peopleQuantity;
 const oldDateOptions = reservDate.querySelectorAll('.reservation__option');
 oldDateOptions.forEach(item => {
     item.remove();
@@ -29,7 +32,6 @@ oldTourPeoples.forEach((item) => {
     }
 });
 
-
 const newDateOptions = (element, data) => {
     data.map((item) => {
         element.insertAdjacentHTML(
@@ -40,6 +42,19 @@ const newDateOptions = (element, data) => {
 
 newDateOptions(reservDate, data);
 newDateOptions(tourDate, data);
+tourDate.addEventListener('change', (e) => {
+    const target = e.target;
+    data.forEach((item) => {
+        if (target.value === item.date) {
+            const keys = Object.values(item);
+            for (let i = keys[1]; i <= keys[2]; i++) {
+                tourPeople.insertAdjacentHTML(
+                    'beforeend',
+            `<option value="${i}" class="tour__option reservation__option">${i}</option>`)
+            }
+        }
+    });
+});
 reservDate.addEventListener('change', (e) => {
     const target = e.target;
     data.forEach((item) => {
@@ -54,11 +69,17 @@ reservDate.addEventListener('change', (e) => {
     });
 });
 reservDate.addEventListener('change', (e) => {
-    const dateTour = e.target.value;
+    dateTour = e.target.value;
    reservPeople.addEventListener('change', (e) => {
-      const peopleQuantity = e.target.value;
+      peopleQuantity = e.target.value;
       reservationInfo.textContent = `${dateTour}, ${peopleQuantity} человека`;
-});
+      data.forEach((item) => {
+        if (dateTour === item.date) {
+            tourPrice = item.price * peopleQuantity;
+            reservationPrice.textContent = `${tourPrice}₽`;
+        }
+    });
+    });
 });
 
 };
