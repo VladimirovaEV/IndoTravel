@@ -17,7 +17,14 @@ const calcPositionFly = () => {
   const maxScroll = docEl.scrollHeight - docEl.clientHeight;
   const percentScroll = (window.pageYOffset * 100) / maxScroll;
   const top = maxTop * (percentScroll / 100) - window.pageYOffset;
-  fly.style.transform = `translateY(-${top}px)`;
+  window.addEventListener('wheel', (e) => {
+    if (e.deltaY < 0) {
+      fly.style.transform = `translateY(-${top}px) rotate(180deg)`;
+    }
+    else if (e.deltaY > 0) {
+      fly.style.transform = `translateY(-${top}px)`;
+    }
+  });
 };
 
 window.addEventListener('scroll', () => {
@@ -31,7 +38,6 @@ window.addEventListener('resize', () => {
     fly.style.display = 'block';
   }
 });
-
 
 calcPositionFly();
 export default {

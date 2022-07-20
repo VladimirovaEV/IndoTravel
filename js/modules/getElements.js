@@ -1,5 +1,5 @@
 const timerElement = document.querySelector('.timer');
-timerElement.dataset.deadline = '2022/08/06 17:32';
+timerElement.dataset.deadline = '2022/08/09 07:00';
 const timerItemDays = document.querySelector('.timer__item_days');
 const timerItemHours = document.querySelector('.timer__item_hours');
 const timerItemMinutes = document.querySelector('.timer__item_minutes');

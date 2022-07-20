@@ -14,7 +14,7 @@ background: url('../../img/plane.svg') center/contain no-repeat;
 display: none;
 `;
 document.body.append(fly);
-const duration = 3000;
+const duration = 1500;
 const distance = 1000;
 let requestId = NaN;
 const startAnimation = (duration, callback) => {
@@ -33,12 +33,15 @@ const easeInOut = time => 0.5 * (1 - Math.cos(Math.PI * time));
 let startTime = NaN;
 const durationOpacity = 1500;
 const showMenu = (timestamp) => {
-  console.log(timestamp);
     startTime ||= timestamp;
     let progress = (timestamp - startTime) / durationOpacity;
     headerMenu.style.opacity = 0 + progress;
-    console.log(progress);
       requestId = requestAnimationFrame(showMenu);
+        fly.style.display = 'block';
+  startAnimation(duration, (progress) => {
+        const right = easeInOut(progress) * distance;
+        fly.style.transform = `translateX(-${right}px)`;
+    });
     if (progress > 1) {
       cancelAnimationFrame(requestId);
     }
@@ -46,11 +49,11 @@ const showMenu = (timestamp) => {
 
 headerMenuButton.addEventListener('click', (e) => {
   e.stopPropagation();
-  fly.style.display = 'block';
-  startAnimation(duration, (progress) => {
-        const right = easeInOut(progress) * distance;
-        fly.style.transform = `translateX(-${right}px)`;
-    });
+  // fly.style.display = 'block';
+  // startAnimation(duration, (progress) => {
+  //       const right = easeInOut(progress) * distance;
+  //       fly.style.transform = `translateX(-${right}px)`;
+  //   });
   showMenu();
   headerMenu.classList.toggle('header__menu_active');
 });
