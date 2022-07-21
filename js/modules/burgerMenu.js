@@ -15,7 +15,7 @@ display: none;
 `;
 document.body.append(fly);
 const duration = 1500;
-const distance = 1000;
+const distance = 3000;
 let requestId = NaN;
 const startAnimation = (duration, callback) => {
     let startAnimation = NaN;

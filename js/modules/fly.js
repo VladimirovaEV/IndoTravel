@@ -8,6 +8,7 @@ right: 0;
 bottom: 0;
 pointer-events: none;
 background: url('../../img/airplane.svg') center/contain no-repeat;
+transition: all 0.3s linear;
 `;
 
 document.body.append(fly);

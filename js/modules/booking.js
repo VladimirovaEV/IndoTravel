@@ -7,26 +7,21 @@ const reservationInfo = document.querySelector('.reservation__data');
 const reservationPrice = document.querySelector('.reservation__price');
 
 const renderTours = async () => {
-const data = await loadData();
-let tourPrice;
-let dateTour;
-let peopleQuantity;
-const oldDateOptions = reservDate.querySelectorAll('.reservation__option');
-oldDateOptions.forEach(item => {
-    item.remove();
-});
-const oldPeopleOptions = reservPeople.querySelectorAll('.reservation__option');
-oldPeopleOptions.forEach(item => {
-    item.remove();
-});
+  const data = await loadData();
+  let tourPrice;
+  let dateTour;
+  let peopleQuantity;
+
+  const oldDateOptions = reservDate.querySelectorAll('.reservation__option');
+  const removeOptions = (elem) => {
+    elem.forEach(item => {
+        item.remove();
+    });
+  };
+
+removeOptions(oldDateOptions);
 const oldTourDates = tourDate.querySelectorAll('.tour__option');
 oldTourDates.forEach((item) => {
-    if (item.value !== '') {
-        item.remove();
-    }
-});
-const oldTourPeoples = tourPeople.querySelectorAll('.tour__option');
-oldTourPeoples.forEach((item) => {
     if (item.value !== '') {
         item.remove();
     }
@@ -43,6 +38,7 @@ const newDateOptions = (element, data) => {
 newDateOptions(reservDate, data);
 newDateOptions(tourDate, data);
 tourDate.addEventListener('change', (e) => {
+    const options = tourPeople.querySelectorAll('option');
     const target = e.target;
     data.forEach((item) => {
         if (target.value === item.date) {
@@ -54,8 +50,14 @@ tourDate.addEventListener('change', (e) => {
             }
         }
     });
+    const oldOpt = [...options];
+    oldOpt.slice(1).forEach((el) => {
+      el.remove();
+    });
 });
+
 reservDate.addEventListener('change', (e) => {
+    const options = reservPeople.querySelectorAll('option');
     const target = e.target;
     data.forEach((item) => {
         if (target.value === item.date) {
@@ -63,9 +65,13 @@ reservDate.addEventListener('change', (e) => {
             for (let i = keys[1]; i <= keys[2]; i++) {
                 reservPeople.insertAdjacentHTML(
                     'beforeend',
-            `<option value="${i}" class="tour__option reservation__option">${i}</option>`)
+            `<option value="${i}" class="tour__option reservation__option new__option">${i}</option>`)
             }
         }
+    });
+    const oldOpt = [...options];
+    oldOpt.slice(1).forEach((el) => {
+      el.remove();
     });
 });
 reservDate.addEventListener('change', (e) => {
