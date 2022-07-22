@@ -92,4 +92,12 @@ reservDate.addEventListener('change', (e) => {
 renderTours();
 
 
-export default renderTours;
+export default {
+  reservDate,
+  reservPeople,
+  tourDate,
+  tourPeople,
+  reservationInfo,
+  reservationPrice,
+  renderTours,
+};
