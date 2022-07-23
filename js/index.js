@@ -8,10 +8,14 @@ import burgerMenu from './modules/burgerMenu.js';
 import fly from './modules/fly.js';
 import loadData from './modules/loadData.js';
 import booking from './modules/booking.js';
-// import sendData from './modules/sendData.js';
 import request from './modules/request.js';
 const {
   httpRequest
 } = request;
+import modal from './modules/modal.js';
+const {
+  overlaySuccess,
+  overlayFail,
+} = modal;
 
 timer(deadLine);

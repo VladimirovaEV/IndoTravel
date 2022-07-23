@@ -1,13 +1,13 @@
 import booking from './booking.js';
 const {
-reservDate,
-reservPeople,
-tourDate,
-tourPeople,
 reservationInfo,
 reservationPrice,
-renderTours,
 } = booking;
+import modal from './modal.js';
+const {
+    overlaySuccess,
+    overlayFail,
+} = modal;
 
 const form = document.querySelector('.reservation__form');
 const name = document.querySelector('.reservation__input_name');
@@ -17,6 +17,7 @@ const email = document.querySelector('.footer__input');
 const footerFormTitle = document.querySelector('.footer__form-title');
 const footerFormText = document.querySelector('.footer__text');
 const footerInputWrap = document.querySelector('.footer__input-wrap');
+
 
 const httpRequest = (url, {
     method = 'GET',
@@ -52,6 +53,8 @@ const httpRequest = (url, {
 };
 
 form.addEventListener('submit', (e) => {
+    if (form.dates.value !== '' && form.people.value !== '') {
+       
     e.preventDefault();
     httpRequest('https://jsonplaceholder.typicode.com/posts', {
         method: 'POST',
@@ -64,16 +67,21 @@ form.addEventListener('submit', (e) => {
         callback(err, data) {
             if (err) {
                 console.warn(err, data);
-                alert('Что-то пошло не так...');
+                overlayFail.classList.add('active');
             }
         reservationInfo.textContent = `${name.value},`;
         reservationPrice.textContent = 'ваша заявка отправлена';
         form.reset();
+        overlaySuccess.classList.add('active');
         },
         headers: {
             'Content-Type': 'application/json; charset=UTF-8',
         }
     });
+    } else {
+        alert('Заполнены не все поля');
+        return false;
+    }
 });
 emailForm.addEventListener('submit', (e) => {
     e.preventDefault();
