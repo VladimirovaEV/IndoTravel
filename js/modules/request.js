@@ -53,9 +53,11 @@ const httpRequest = (url, {
 };
 
 form.addEventListener('submit', (e) => {
-    if (form.dates.value !== '' && form.people.value !== '') {
-       
     e.preventDefault();
+    if (form.dates.value === '' || form.people.value === '') {
+       alert('Заполнены не все поля');
+        return;
+    }
     httpRequest('https://jsonplaceholder.typicode.com/posts', {
         method: 'POST',
         body: {
@@ -78,10 +80,6 @@ form.addEventListener('submit', (e) => {
             'Content-Type': 'application/json; charset=UTF-8',
         }
     });
-    } else {
-        alert('Заполнены не все поля');
-        return false;
-    }
 });
 emailForm.addEventListener('submit', (e) => {
     e.preventDefault();
