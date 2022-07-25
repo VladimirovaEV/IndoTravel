@@ -2,16 +2,20 @@ import booking from './booking.js';
 const {
 reservationInfo,
 reservationPrice,
+reservDate,
+reservPeople,
 } = booking;
 import modal from './modal.js';
 const {
     overlaySuccess,
     overlayFail,
 } = modal;
+import showModal from './showModal.js';
 
 const form = document.querySelector('.reservation__form');
 const name = document.querySelector('.reservation__input_name');
 const phone = document.querySelector('#reservation__phone');
+const formButton = document.querySelector('.reservation__button');
 const emailForm = document.querySelector('.footer__form');
 const email = document.querySelector('.footer__input');
 const footerFormTitle = document.querySelector('.footer__form-title');
@@ -52,12 +56,14 @@ const httpRequest = (url, {
     }
 };
 
-form.addEventListener('submit', (e) => {
+form.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (form.dates.value === '' || form.people.value === '') {
        alert('Заполнены не все поля');
         return;
     }
+    const checkResult = await showModal();
+    if (checkResult) {
     httpRequest('https://jsonplaceholder.typicode.com/posts', {
         method: 'POST',
         body: {
@@ -73,13 +79,17 @@ form.addEventListener('submit', (e) => {
             }
         reservationInfo.textContent = `${name.value},`;
         reservationPrice.textContent = 'ваша заявка отправлена';
-        form.reset();
+        // form.reset();
+        reservDate.setAttribute('disabled', '');
+        reservPeople.setAttribute('disabled', '');
+        formButton.setAttribute('disabled', '');
         overlaySuccess.classList.add('active');
         },
         headers: {
             'Content-Type': 'application/json; charset=UTF-8',
         }
     });
+ }
 });
 emailForm.addEventListener('submit', (e) => {
     e.preventDefault();

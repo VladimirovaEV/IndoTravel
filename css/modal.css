@@ -1,79 +1,63 @@
 .overlay {
-    display: none;
-    position: fixed;
-    justify-content: center;
-    align-items: center;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    overflow: auto;
-    background: rgba(255, 255, 255, 0.8);
+  position: fixed;
+  inset: 0;
+  z-index: 100;
 }
 
-.overlay.active {
-    display: flex;
-}
-
-.overlay__modal {
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    margin: auto;
-}
 .modal {
-    background: #FFFFFF;
-    position: relative;
-    max-width: 980px;
-    border: 1px solid #AFAFAF;
-    border-radius: 30px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 980px;
+  width: 100%;
+  height: 495px;
+  background: #FFFFFF;
+  border: 1px solid #AFAFAF;
+  border-radius: 30px;
+  padding: 60px;
 }
-.modal__success {
-    padding: 77px 200px 185px;
-}
-.modal__fail {
-    padding: 77px 168px 209px;
-}
+
 .modal__title {
-    font-family: Merriweather;
-    font-weight: 400;
-    font-size: 34px;
-    line-height: 51px;
-    letter-spacing: .02em;
-    text-align: center;
-    margin-bottom: 40px;
+  text-align: center;
+  margin-bottom: 50px;
 }
+
 .modal__text {
-    font-family: Nunito;
-    font-weight: 700;
-    font-style: 18px;
-    line-height: 27px;
-    text-align: center;
-    margin-bottom: 64px;
+  text-align: center;
+  margin-bottom: 40px;
 }
-.modal__close {
-margin: auto;
-    position: absolute;
-    top: 310px;
-    left: 0;
-    bottom: 0;
-    right: 0;
+
+.modal__button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
 }
+
 .modal__btn {
-    margin: auto;
-    position: absolute;
-    left: 0;
-    right: 0;
-    max-width:360px;
-    padding: 24px 112px;
-    border: none;
-    border-radius: 12px;
-    background-color: #FCB500;
-    color: #fff;
-    font-family: Nunito;
-    font-weight: 700;
-    font-style: 18px;
-    line-height: 27px;
+  padding: 16px 40px;
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  background-color: #FCB500;
+  border: 2px solid transparent;
+}
+
+.modal__btn_edit {
+  background-color: #fc8900;
+}
+
+.modal__btn:hover {
+  background-color: #ffbbaa;
+}
+
+.modal__btn:active {
+  transform: translate(2px, 2px);
+}
+
+.modal__btn:focus {
+  outline: 1px solid #FCB500;
+  outline-offset: 5px;
 }

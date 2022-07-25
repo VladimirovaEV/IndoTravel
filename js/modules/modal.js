@@ -1,11 +1,11 @@
 const overlaySuccess = document.createElement('div');
-overlaySuccess.classList.add('overlay');
+overlaySuccess.classList.add('overlayM');
 const overlayFail = document.createElement('div');
-overlayFail.classList.add('overlay');
+overlayFail.classList.add('overlayM');
 overlaySuccess.insertAdjacentHTML('beforeend',
-`<div class="overlay__modal modal modal__success">
-      <h2 class="modal__title">Ваша заявка успешно отправлена</h2>
-      <p class="modal__text">Наши менеджеры свяжутся с вами в течении 3-х рабочих дней</p>
+`<div class="overlay__modal modalWin modal__success">
+      <h2 class="modalWin__title">Ваша заявка успешно отправлена</h2>
+      <p class="modalWin__text">Наши менеджеры свяжутся с вами в течении 3-х рабочих дней</p>
       <button class="modal__close">
         <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" fill="none">
           <circle cx="50" cy="50" r="50" fill="#78EC6E" />
@@ -16,16 +16,16 @@ overlaySuccess.insertAdjacentHTML('beforeend',
       </button>
     </div>`);
 overlayFail.insertAdjacentHTML('beforeend',
-`<div class="overlay__modal modal modal__fail">
-      <h2 class="modal__title">Упс... Что-то пошло не так</h2>
-      <p class="modal__text">Не удалось отправить заявку. Пожалуйста, повторите отправку еще раз</p>
-      <button class="modal__btn">Забронировать</button>
+`<div class="overlay__modal modalWin modal__fail">
+      <h2 class="modalWin__title">Упс... Что-то пошло не так</h2>
+      <p class="modalWin__text">Не удалось отправить заявку. Пожалуйста, повторите отправку еще раз</p>
+      <button class="modalWin__btn">Забронировать</button>
     </div>`);
 const body = document.querySelector('body');
 body.append(overlaySuccess);
 body.append(overlayFail);
 const modalClose = document.querySelector('.modal__close');
-const modalBtn = document.querySelector('.modal__btn');
+const modalBtn = document.querySelector('.modalWin__btn');
 modalClose.addEventListener('click', () => {
     overlaySuccess.classList.remove('active');
 })
