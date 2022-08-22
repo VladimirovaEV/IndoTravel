@@ -34,7 +34,7 @@ const httpRequest = (url, {
     xhr.open(method, url);
     if (headers) {
         for (const [key, value] of Object.keys(headers)) {
-            xhr.setRequestHeader(key, value)
+            xhr.setRequestHeader(key, value);
         }
     }
     xhr.addEventListener('load', () => {
@@ -55,11 +55,22 @@ const httpRequest = (url, {
         callback(new Error(err));
     }
 };
-
+name.addEventListener('input', () => {
+    name.value = name.value.replace(/[^А-ЯЁ ]/ig, '');
+    
+});
+phone.addEventListener('input', () => {
+    phone.value = phone.value.replace(/[^+0-9]/g, '');
+});
+const reg = /[а-яё]+( [а-яё]+)+( [а-яё]+)+/i;
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (form.dates.value === '' || form.people.value === '') {
        alert('Заполнены не все поля');
+        return;
+    }
+    if (!reg.test(name.value)) {
+        alert('Поле ФИО заполнено не полностью');
         return;
     }
     const checkResult = await showModal();
