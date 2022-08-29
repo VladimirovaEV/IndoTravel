@@ -9,6 +9,8 @@ import fly from './modules/fly.js';
 import loadData from './modules/loadData.js';
 import booking from './modules/booking.js';
 import request from './modules/request.js';
+import slider from './modules/slider.js';
+import validate from './modules/validate.js';
 const {
   httpRequest
 } = request;
